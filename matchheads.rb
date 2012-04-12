@@ -39,9 +39,9 @@ cuke.strike = ->(b) { "cucumber #{b}" }
 gem = OpenStruct.new
 gem.description = 'install gem'
 gem.match = ->(b) { if b =~ /^([A-Za-z0-9_\-\/]+)\.gem$/
-                   @gem_to_install = $1
-                 end
-               }
+                      @gem_to_install = $1
+                    end
+                  }
 gem.strike = ->(b) { "sudo gem install #{@gem_to_install}" }
 
 # run rake task
