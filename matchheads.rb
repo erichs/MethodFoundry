@@ -1,9 +1,9 @@
 # ##### Teach Bash new tricks here! #####
 
 #  OpenStruct instances must minimally define these attributes:
-#       description:    string describing the action taken
-#       match:          lambda returning boolean
-#       strike:       lambda returning a bash-evaluable string
+#       description: string describing the action taken
+#       match:       lambda returning boolean
+#       strike:      lambda returning a bash-evaluable string
 
 # change directories
 dir = OpenStruct.new
