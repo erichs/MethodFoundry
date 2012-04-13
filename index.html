@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>MatchFactory by erichs</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>MatchFactory</h1>
+<p>extensible method_missing() for Bash!</p>
+        <p class="view"><a href="https://github.com/erichs/MatchFactory">View the Project on GitHub <small>erichs/MatchFactory</small></a></p>
+        <ul>
+          <li><a href="https://github.com/erichs/MatchFactory/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/erichs/MatchFactory/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/erichs/MatchFactory">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <pre><code>        :::   :::       ::: ::::::::::: ::::::::  :::    :::
+      :+:+: :+:+:    :+: :+:   :+:    :+:    :+: :+:    :+:
+    +:+ +:+:+ +:+  +:+   +:+  +:+    +:+        +:+    +:+
+   +#+  +:+  +#+ +#++:++#++: +#+    +#+        +#++:++#++
+  +#+       +#+ +#+     +#+ +#+    +#+        +#+    +#+
+ #+#       #+# #+#     #+# #+#    #+#    #+# #+#    #+#
+###       ### ###     ### ###     ########  ###    ###
+
+      ::::::::::   :::      :::::::: ::::::::::: ::::::::  :::::::::  :::   :::
+     :+:        :+: :+:   :+:    :+:    :+:    :+:    :+: :+:    :+: :+:   :+:
+    +:+       +:+   +:+  +:+           +:+    +:+    +:+ +:+    +:+  +:+ +:+
+   :#::+::# +#++:++#++: +#+           +#+    +#+    +:+ +#++:++#:    +#++:
+  +#+      +#+     +#+ +#+           +#+    +#+    +#+ +#+    +#+    +#+
+ #+#      #+#     #+# #+#    #+#    #+#    #+#    #+# #+#    #+#    #+#
+###      ###     ###  ########     ###     ########  ###    ###    ###
+
+# Method Missing for Bash!
+</code></pre>
+
+<h2>What is MatchFactory?</h2>
+
+<p><strong>MatchFactory handles unrecognized shell input, allowing you to teach an old shell
+new tricks!</strong></p>
+
+<h2>What does it do?</h2>
+
+<p>If your bash command would result in a 'command not found' response, MatchFactory
+tries hard to pair your input with any of its stored Matches. If a Match is found,
+MatchFactory yields a replacement command to Bash for execution instead.</p>
+
+<p>If multiple Matches are found, MatchFactory will prompt you to select one.</p>
+
+<h2>What tricks can it do?</h2>
+
+<p>Just about anything, really. MatchFactory currently knows how to:</p>
+
+<ul>
+<li>change directories in your shell</li>
+<li>run a rake task by name</li>
+<li>open an arbitrary URL in your favorite browser</li>
+<li>clone a git repository</li>
+<li>download and unzip a tar(gz) file</li>
+<li>run cucumber features by name</li>
+<li>install a Ruby Gem</li>
+</ul><p>MatchFactory is designed to be extensible. It is easy to add Matches to handle new
+input. It's Ruby, so you have its power and expressive syntax at your disposal.</p>
+
+<h2>How does it work</h2>
+
+<p>Bash provides a mechanism to execute a shell function immediately prior to executing
+a shell command. This is done by trapping the DEBUG signal. This shell function tests
+the command about to be executed, and if it would result in a 'command not found'
+error, it invokes the MatchFactory.rb file. If MatchFactory returns any text, this is
+evaluated by Bash instead of executing the original command.</p>
+
+<h2>How do I use it?</h2>
+
+<h3>Install:</h3>
+
+<p>I keep my configuration files in a ~/conf directory. Extract MatchFactory to your ~/conf
+directory and source the method-missing.sh file in your .bashrc. Adjust pathing according
+to your tastes and setup.</p>
+
+<h3>Usage:</h3>
+
+<p>copy/pasting bare URLs to the command line should now just work. Additionally,
+specifying a full or relative path ending in '/' will 'cd' you to that directory.</p>
+
+<p>MatchFactory is Rake-aware. Assuming the output of rake -T:</p>
+
+<pre><code>&gt; rake -T
+  rake about              # List versions of all Rails frameworks and the environment
+  rake test               # Runs test:units, test:functionals, test:integration
+</code></pre>
+
+<p>Then you can just say 'about' or 'test', and rake will be invoked accordingly.</p>
+
+<p>See the file matchheads.rb for more examples.</p>
+
+<h3>Caveats:</h3>
+
+<ul>
+<li>This is known to work on osx, with Ruby 1.9. YMMV.</li>
+<li>Don't even think about installing something like this on a production system.</li>
+<li>Use of the DEBUG trap in this fashion may jack up debuggers like 'gdb'.</li>
+</ul><h2>Design Notes and Credits</h2>
+
+<p>I first encountered this awesome and crazy idea through Geoffrey Grosenbach's
+<a href="http://peepcode.com/blog/2009/shell-method-missing">Peepcode Blog</a>.</p>
+
+<p>I was motivated to restructure his setup for the following reasons:</p>
+
+<ol>
+<li>I didn't like seeing 'command not found' errors after successful method-missing()
+calls.</li>
+<li>I wanted to easily affect the state of the parent shell (cd'ing, for example),
+without resorting to <a href="http://fvue.nl/wiki/Bash:_Passing_variables_by_reference#Appendix_A:_upvar.sh">black
+magic</a>.</li>
+<li>The case logic seemed hard to maintain and ordering of the regex matches becomes
+important. What if I want multiple options to match?</li>
+</ol><p>In order to meet my goals, I needed to have Bash eval() the output from MatchFactory.
+This makes for a slightly more complex method-missing function, but I feel the
+tradeoff is worth it.</p>
+
+<p>Getting Bash to skip execution of the original command requires a hack involving
+setting the shell option 'extdebug', and returning a value &gt;1. Per the BASH
+documentation, this simulates a RETURN trap.</p>
+
+<h2>License</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright © 2012 Erich Smith</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this
+software and associated documentation files (the "Software"), to deal in the Software
+without restriction, including without limitation the rights to use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the following
+conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies
+or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/erichs">erichs</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    
+  </body>
+</html>
