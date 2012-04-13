@@ -1,4 +1,3 @@
-
             :::   :::       ::: ::::::::::: ::::::::  :::    :::
           :+:+: :+:+:    :+: :+:   :+:    :+:    :+: :+:    :+:
         +:+ +:+:+ +:+  +:+   +:+  +:+    +:+        +:+    +:+
@@ -102,8 +101,8 @@ setting the shell option 'extdebug', and returning a value >1. Per the BASH
 documentation, this simulates a RETURN trap.
 
 ## License
-The MIT License (MIT)
-Copyright (c) <2012> <Erich Smith>
+(The MIT License)
+Copyright © 2012 Erich Smith
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this
 software and associated documentation files (the "Software"), to deal in the Software
