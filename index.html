@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>MatchFactory by erichs</title>
-
+    <title>MatchFactory: extensible method_missing(), for Bash!</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
     <script src="javascripts/scale.fix.js"></script>
@@ -27,7 +26,8 @@
         </ul>
       </header>
       <section>
-        <pre><code>        :::   :::       ::: ::::::::::: ::::::::  :::    :::
+        <pre><code>
+        :::   :::       ::: ::::::::::: ::::::::  :::    :::
       :+:+: :+:+:    :+: :+:   :+:    :+:    :+: :+:    :+:
     +:+ +:+:+ +:+  +:+   +:+  +:+    +:+        +:+    +:+
    +#+  +:+  +#+ +#++:++#++: +#+    +#+        +#++:++#++
@@ -74,12 +74,12 @@ MatchFactory yields a replacement command to Bash for execution instead.</p>
 </ul><p>MatchFactory is designed to be extensible. It is easy to add Matches to handle new
 input. It's Ruby, so you have its power and expressive syntax at your disposal.</p>
 
-<h2>How does it work</h2>
+<h2>How does it work?</h2>
 
 <p>Bash provides a mechanism to execute a shell function immediately prior to executing
-a shell command. This is done by trapping the DEBUG signal. This shell function tests
+a shell command. This is done by trap()ing the DEBUG signal. This trap function tests
 the command about to be executed, and if it would result in a 'command not found'
-error, it invokes the MatchFactory.rb file. If MatchFactory returns any text, this is
+error, it invokes MatchFactory. If MatchFactory returns any text, this is
 evaluated by Bash instead of executing the original command.</p>
 
 <h2>How do I use it?</h2>
@@ -112,7 +112,9 @@ specifying a full or relative path ending in '/' will 'cd' you to that directory
 <li>This is known to work on osx, with Ruby 1.9. YMMV.</li>
 <li>Don't even think about installing something like this on a production system.</li>
 <li>Use of the DEBUG trap in this fashion may jack up debuggers like 'gdb'.</li>
-</ul><h2>Design Notes and Credits</h2>
+</ul>
+
+<h2>Design Notes and Credits</h2>
 
 <p>I first encountered this awesome and crazy idea through Geoffrey Grosenbach's
 <a href="http://peepcode.com/blog/2009/shell-method-missing">Peepcode Blog</a>.</p>
@@ -128,12 +130,12 @@ magic</a>.</li>
 <li>The case logic seemed hard to maintain and ordering of the regex matches becomes
 important. What if I want multiple options to match?</li>
 </ol><p>In order to meet my goals, I needed to have Bash eval() the output from MatchFactory.
-This makes for a slightly more complex method-missing function, but I feel the
+This makes for a slightly more complex trap function, but I feel the
 tradeoff is worth it.</p>
 
-<p>Getting Bash to skip execution of the original command requires a hack involving
-setting the shell option 'extdebug', and returning a value &gt;1. Per the BASH
-documentation, this simulates a RETURN trap.</p>
+<p>In the Happy Path, getting Bash to skip execution of the original command
+requires a hack involving setting the shell option 'extdebug', and returning a
+value &gt;1. Per the BASH documentation, this simulates a RETURN trap.</p>
 
 <h2>License</h2>
 
