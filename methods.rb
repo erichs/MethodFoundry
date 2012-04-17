@@ -9,7 +9,7 @@
 #
 #  ->(c) { ... }
 #
-#  where 'c' is shorthand for 'command', passed in by MatchFactory
+#  where 'c' is shorthand for 'command', passed in by MethodFoundry
 #
 # <sidebar> This syntax is commonly referred to as 'stabby proc'. I can get
 # behind the 'stabby' part of the moniker, but I take issue with 'proc',
