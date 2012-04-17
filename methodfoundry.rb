@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 # DESCRIPTION: Tries (hard) to do something with unrecognized shell input.
 #
-#              Examines all OpenStruct Matches, emitting a replacement
+#              Examines all OpenStruct Methods, emitting a replacement
 #              command string when a Bash input match is found.  If
-#              multiple matches are found, the user is prompted to select
+#              multiple methods match, the user is prompted to select
 #              one.
 #
 # CREDITS:     Based on ideas from
@@ -13,7 +13,7 @@
 # AUTHOR:      Erich Smith
 
 require 'ostruct'
-require '~/conf/matchheads.rb'  # all match objects are defined here
+require '~/conf/methods.rb'  # all method objects are defined here
 
 def main(bashcmd)
   matchbook = []  # find all command matches
@@ -22,7 +22,7 @@ def main(bashcmd)
   end
 
   unless matchbook.empty?
-    selection = select_from matchbook  # matchmaker, make me a match!
+    selection = select_from matchbook
     abort if selection == 'x'
     match = matchbook[selection.to_i]
     puts match.strike.( bashcmd )
