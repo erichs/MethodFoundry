@@ -1,7 +1,7 @@
 
-## What is MatchFactory?
+## What is MethodFoundry?
 
-**MatchFactory handles unrecognized shell input, allowing you to teach an old shell
+**MethodFoundry handles unrecognized shell input, allowing you to teach an old shell
 new tricks!**
 
-Check out the [MatchFactory Project Page](http://erichs.github.com/MatchFactory/) for more info.
+Check out the [MethodFoundry Project Page](http://erichs.github.com/MethodFoundry/) for more info.
