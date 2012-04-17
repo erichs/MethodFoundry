@@ -3,7 +3,7 @@
 method_missing() { local cmd=$1
     shopt -u extdebug
     if ! $(type -t $cmd >/dev/null); then
-        newcmd=$(~/conf/matchfactory.rb $cmd)
+        newcmd=$(~/conf/methodfoundry.rb $cmd)
         if [ -n "$newcmd" ]; then
             echo "$FUNCNAME: executing '$newcmd' instead"
             eval $newcmd
