@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 # DESCRIPTION: Tries (hard) to do something with unrecognized shell input.
 #
 #              Examines all OpenStruct Methods, emitting a replacement

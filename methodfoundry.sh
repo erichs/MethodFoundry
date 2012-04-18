@@ -5,7 +5,7 @@ load_source() {
   method_missing() { local cmd=$1
     shopt -u extdebug
     if ! $(type -t $cmd >/dev/null); then
-      newcmd=$(~/conf/methodfoundry.rb $cmd)
+      newcmd=$(/usr/bin/env ruby ~/conf/methodfoundry.rb $cmd)
       if [ -n "$newcmd" ]; then
         echo "$FUNCNAME: executing '$newcmd' instead"
         eval $newcmd
