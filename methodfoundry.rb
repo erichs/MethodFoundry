@@ -12,7 +12,7 @@
 # AUTHOR:      Erich Smith
 
 require 'ostruct'
-require '~/conf/methods.rb'  # all method objects are defined here
+require_relative 'methods.rb'  # all method objects are defined here
 
 def main(bashcmd)
   matchbook = []  # find all command matches
